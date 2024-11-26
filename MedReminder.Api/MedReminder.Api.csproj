@@ -8,11 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MedReminder.DAL\MedReminder.Dal.csproj" />
+    <ProjectReference Include="..\MedReminder.Shared\MedReminder.Shared.csproj" />
   </ItemGroup>
 
 </Project>

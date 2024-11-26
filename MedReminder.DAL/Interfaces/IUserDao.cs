@@ -4,7 +4,8 @@ namespace MedReminder.Dal.Interfaces;
 
 public interface IUserDao
 {
-	Task<User> GetByIdAsync(int id);
-	Task<int> CreateAsync(User user);
+    Task<User> GetByIdAsync(int id);
+    Task<User> GetUserByEmailAsync(string email);
+    Task<int> CreateUserAsync(User user);
 
 }

@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedReminder.Web", "MedReminder.Web\MedReminder.Web.csproj", "{E7EBB109-ADA3-43EF-8721-FC8A40E4CA5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedReminder.Web", "MedReminder.Web\MedReminder.Web.csproj", "{E7EBB109-ADA3-43EF-8721-FC8A40E4CA5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedReminder.Api", "MedReminder.Api\MedReminder.Api.csproj", "{166143A1-9AD5-4A00-B084-8E15CC993A83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedReminder.Api", "MedReminder.Api\MedReminder.Api.csproj", "{166143A1-9AD5-4A00-B084-8E15CC993A83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedReminder.ApiClient", "MedReminder.ApiClient\MedReminder.ApiClient.csproj", "{08DA7917-04A5-4B29-8CB6-1EFD648E1F58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedReminder.ApiClient", "MedReminder.ApiClient\MedReminder.ApiClient.csproj", "{08DA7917-04A5-4B29-8CB6-1EFD648E1F58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedReminder.Dal", "MedReminder.DAL\MedReminder.Dal.csproj", "{8E07BD44-820B-431C-97E0-7C5E8E306ABF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedReminder.Dal", "MedReminder.DAL\MedReminder.Dal.csproj", "{8E07BD44-820B-431C-97E0-7C5E8E306ABF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedReminder.Shared", "MedReminder.Shared\MedReminder.Shared.csproj", "{CBC7AA22-5C1B-48F6-A7DD-3153B6319B16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{8E07BD44-820B-431C-97E0-7C5E8E306ABF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E07BD44-820B-431C-97E0-7C5E8E306ABF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E07BD44-820B-431C-97E0-7C5E8E306ABF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBC7AA22-5C1B-48F6-A7DD-3153B6319B16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBC7AA22-5C1B-48F6-A7DD-3153B6319B16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBC7AA22-5C1B-48F6-A7DD-3153B6319B16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBC7AA22-5C1B-48F6-A7DD-3153B6319B16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
