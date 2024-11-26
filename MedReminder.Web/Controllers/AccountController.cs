@@ -74,5 +74,11 @@ namespace MedReminder.Web.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("JwtToken");
+            return RedirectToAction("Login");
+        }
     }
 }
