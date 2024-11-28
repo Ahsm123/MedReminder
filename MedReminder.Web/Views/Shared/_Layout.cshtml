@@ -25,6 +25,11 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Min side</a>
+                        </li>
+
                         <li class="nav-item ">
                             @if (Context.Request.Cookies["JwtToken"] != null)
                             {
@@ -39,6 +44,7 @@
                             @if (Context.Request.Cookies["JwtToken"] == null)
                             {
                                 <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a>
+                                
                             }
                         </li>
 

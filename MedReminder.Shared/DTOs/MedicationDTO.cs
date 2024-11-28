@@ -1,8 +1,7 @@
-﻿namespace MedReminder.DAL.Models;
+﻿namespace MedReminder.Shared.DTOs;
 
-public class Medication
+public class MedicationDTO
 {
-    public int Id { get; set; }
     public int UserId { get; set; }
     public string Name { get; set; }
     public int Dosage { get; set; }
@@ -11,7 +10,4 @@ public class Medication
     public string Description { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
-
-    public User User { get; set; } = null!;
-    public List<MedicationSchedule> MedicationSchedules { get; set; } = new();
 }

@@ -1,0 +1,40 @@
+﻿@model List<MedReminder.Shared.DTOs.MedicationDTO>
+
+<h1>Your Medications</h1>
+
+@if (Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Dosage</th>
+                <th>Instructions</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var medication in Model)
+            {
+                <tr>
+                    <td>@medication.Name</td>
+                    <td>@medication.Dosage @medication.DosageUnit</td>
+                    <td>@medication.Instructions</td>
+                    <td>@medication.StartDate.ToShortDateString()</td>
+                    <td>@medication.EndDate.ToShortDateString()</td>
+                    <td>@medication.Description</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-muted">You don't have any medications yet.</p>
+}
+
+<a asp-controller="Medication" asp-action="Create" asp-route-userId="@ViewData["UserId"]" class="btn btn-primary mt-3">
+    Tilføj
+</a>

@@ -1,0 +1,49 @@
+﻿@model MedReminder.Shared.DTOs.MedicationDTO
+
+@{
+    ViewData["Title"] = "Tilføj medicin";
+}
+
+<h1>Tilføj medicin</h1>
+
+<form asp-action="Create" method="post">
+    <input type="hidden" asp-for="UserId" value="@Model.UserId" />
+
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">Name</label>
+        <input asp-for="Name" class="form-control" required />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Dosage" class="form-label">Dosage</label>
+        <input asp-for="Dosage" class="form-control" type="number" required />
+        <span asp-validation-for="Dosage" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="DosageUnit" class="form-label">Dosage Unit</label>
+        <input asp-for="DosageUnit" class="form-control" required />
+        <span asp-validation-for="DosageUnit" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="StartDate" class="form-label">Start Date</label>
+        <input asp-for="StartDate" class="form-control" type="date" required />
+        <span asp-validation-for="StartDate" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="EndDate" class="form-label">End Date</label>
+        <input asp-for="EndDate" class="form-control" type="date" required />
+        <span asp-validation-for="EndDate" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label">Description</label>
+        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Tilføj</button>
+</form>

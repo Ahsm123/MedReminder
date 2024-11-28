@@ -1,4 +1,4 @@
-﻿using MedReminder.Api.Interfaces;
+﻿using MedReminder.Api.Services.Interfaces;
 using MedReminder.Dal.Interfaces;
 using MedReminder.DAL.Models;
 
@@ -23,14 +23,9 @@ namespace MedReminder.Api.Services
             return await _userDao.CreateUserAsync(user);
         }
 
-        public Task<User> GetByIdAsync(int id)
+        public async Task<User> GetByIdAsync(int id)
         {
-            if (id <= 0)
-            {
-                throw new ArgumentException("Invalid id", nameof(id));
-            }
-
-            return _userDao.GetByIdAsync(id);
+            return await _userDao.GetByIdAsync(id);
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using MedReminder.Shared.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using RestSharp;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace MedReminder.Web.Controllers
 {
@@ -72,7 +74,18 @@ namespace MedReminder.Web.Controllers
                 Expires = DateTime.UtcNow.AddHours(1)
             });
 
-            return RedirectToAction("Index", "Home");
+
+            var userId = ExtractUserIdFromToken(loginResponse.Token);
+            return RedirectToAction("Index", "User", new { id = userId });
+        }
+
+        private string ExtractUserIdFromToken(string token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadJwtToken(token);
+            var userIdClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+
+            return userIdClaim?.Value ?? string.Empty;
         }
 
         public IActionResult Logout()
@@ -80,5 +93,7 @@ namespace MedReminder.Web.Controllers
             Response.Cookies.Delete("JwtToken");
             return RedirectToAction("Login");
         }
+
+
     }
 }
