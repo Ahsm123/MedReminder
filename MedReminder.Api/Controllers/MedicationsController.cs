@@ -1,4 +1,5 @@
 ﻿using MedReminder.Api.Services.Interfaces;
+using MedReminder.Api.Tools;
 using MedReminder.Shared.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,23 +19,41 @@ namespace MedReminder.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateMedicationAsync(MedicationDTO medicationDTO)
         {
-            try
-            {
-                var medication = await _medicationService.CreateMedicationAsync(medicationDTO);
-                return CreatedAtAction(nameof(CreateMedicationAsync), new { id = medication.Id }, medication);
-            }
-            catch (Exception ex)
-            {
-
-                return BadRequest(ex.Message);
-            }
+            return Ok(await _medicationService.CreateMedicationAsync(medicationDTO));
         }
 
-        [HttpGet("{userId}")]
+        [HttpGet("user/{userId}")]
         public async Task<IActionResult> GetMedicationByUserIdAsync(int userId)
         {
             var medications = await _medicationService.GetMedicationByUserIdAsync(userId);
-            return Ok(medications);
+            if (medications == null) { return NotFound(); }
+            var medicationDtos = medications.Select(m => m.ToDTO()).ToList();
+            return Ok(medicationDtos);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetMedicationByIdAsync(int id)
+        {
+            var medication = await _medicationService.GetMedicationByIdAsync(id);
+            if (medication == null) { return NotFound(); }
+            var medicationDTO = medication.ToDTO();
+            return Ok(medicationDTO);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteMedicationAsync(int id)
+        {
+            if (!await _medicationService.DeleteMedicationAsync(id)) { return NotFound(); }
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateMedicationAsync(int id, MedicationDTO medicationDTO)
+        {
+            medicationDTO.Id = id;
+            if (!await _medicationService.UpdateMedicationAsync(medicationDTO)) { return NotFound(); }
+            return Ok();
         }
     }
 }
+

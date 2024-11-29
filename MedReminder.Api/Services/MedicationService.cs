@@ -14,12 +14,12 @@ public class MedicationService : IMedicationService
     {
         _medicationDao = medicationDao;
     }
-    public async Task<Medication> CreateMedicationAsync(MedicationDTO medicationDTO)
+    public async Task<int> CreateMedicationAsync(MedicationDTO medicationDTO)
     {
         var medication = medicationDTO.ToDomain();
 
-        medication.Id = await _medicationDao.CreateAsync(medication);
-        return medication;
+        var medicationId = await _medicationDao.CreateMedicationAsync(medication);
+        return medicationId;
 
     }
 
@@ -27,5 +27,24 @@ public class MedicationService : IMedicationService
     {
         var medications = await _medicationDao.GetMedicationsByUserIdAsync(userId);
         return medications;
+    }
+
+    public async Task<Medication> GetMedicationByIdAsync(int id)
+    {
+        var medication = await _medicationDao.GetMedicationByIdAsync(id);
+        return medication;
+    }
+
+    public async Task<bool> DeleteMedicationAsync(int id)
+    {
+        var isDeleted = await _medicationDao.DeleteMedicationAsync(id);
+        return isDeleted;
+    }
+
+    public async Task<bool> UpdateMedicationAsync(MedicationDTO medicationDTO)
+    {
+        var medication = medicationDTO.ToDomain();
+        var isUpdated = await _medicationDao.UpdateMedicationAsync(medication);
+        return isUpdated;
     }
 }

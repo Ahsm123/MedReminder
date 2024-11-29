@@ -13,5 +13,4 @@ public class Medication
     public DateTime EndDate { get; set; }
 
     public User User { get; set; } = null!;
-    public List<MedicationSchedule> MedicationSchedules { get; set; } = new();
 }

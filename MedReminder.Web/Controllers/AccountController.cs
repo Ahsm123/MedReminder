@@ -76,7 +76,13 @@ namespace MedReminder.Web.Controllers
 
 
             var userId = ExtractUserIdFromToken(loginResponse.Token);
-            return RedirectToAction("Index", "User", new { id = userId });
+            if (int.TryParse(userId, out int parsedUserId))
+            {
+                return RedirectToAction("Index", "User", new { userId = parsedUserId });
+            }
+            ModelState.AddModelError("", "Failed to extract user id from token.");
+            return View(loginDTO);
+
         }
 
         private string ExtractUserIdFromToken(string token)

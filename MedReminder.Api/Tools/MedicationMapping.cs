@@ -9,7 +9,7 @@ namespace MedReminder.Api.Tools
         {
             return new Medication
             {
-                Id = 0,
+                Id = medicationDTO.Id,
                 UserId = medicationDTO.UserId,
                 Name = medicationDTO.Name,
                 Dosage = medicationDTO.Dosage,
@@ -18,6 +18,22 @@ namespace MedReminder.Api.Tools
                 Description = medicationDTO.Description,
                 StartDate = medicationDTO.StartDate,
                 EndDate = medicationDTO.EndDate
+            };
+        }
+
+        public static MedicationDTO ToDTO(this Medication medication)
+        {
+            return new MedicationDTO
+            {
+                Id = medication.Id,
+                UserId = medication.UserId,
+                Name = medication.Name,
+                Dosage = medication.Dosage,
+                DosageUnit = medication.DosageUnit,
+                Instructions = medication.Instructions,
+                Description = medication.Description,
+                StartDate = medication.StartDate,
+                EndDate = medication.EndDate
             };
         }
     }

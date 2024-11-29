@@ -16,8 +16,10 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
                           ?? throw new InvalidOperationException("Connection string 'DefaultConnection' is not configured.");
 
 // Register services
+builder.Services.AddScoped<IMedicationDao>(_ => new MedicationDao(connectionString));
 builder.Services.AddScoped<IUserDao>(_ => new UserDao(connectionString));
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IMedicationService, MedicationService>();
 
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 

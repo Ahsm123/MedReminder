@@ -6,7 +6,7 @@
 
 <h1>Tilføj medicin</h1>
 
-<form asp-action="Create" method="post">
+<form asp-controller="Medication" asp-action="Create" method="post">
     <input type="hidden" asp-for="UserId" value="@Model.UserId" />
 
     <div class="mb-3">
@@ -45,5 +45,13 @@
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
 
+    <div class="mb-3">
+        <label asp-for="Instructions" class="form-label">Instructions</label>
+        <textarea asp-for="Instructions" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="Instructions" class="text-danger"></span>
+    </div>
+
     <button type="submit" class="btn btn-primary">Tilføj</button>
+    <a asp-controller="User" asp-action="Index" asp-route-userId="@Model.UserId" class="btn btn-secondary">Annuller</a>
 </form>
+
