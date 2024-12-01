@@ -64,5 +64,28 @@ namespace MedReminder.Web.Controllers
             await _apiClient.PutAsync<MedicationDTO>($"Medications/{medicationDTO.Id}", medicationDTO, token);
             return RedirectToAction("Index", "User");
         }
+
+        public async Task<IActionResult> DailySchedule(DateTime? date)
+        {
+            var userId = _cookieService.ExstractUserIdFromToken();
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var selectedDate = date ?? DateTime.Today;
+            ViewBag.SelectedDate = selectedDate;
+
+            var token = _cookieService.GetJwtToken();
+            var response = await _apiClient.GetAsync<List<MedicationDTO>>($"Medications/User/{userId}/schedule?date={selectedDate:yyyy-MM-dd}", token);
+
+            if (!response.IsSuccessful || response.Data == null)
+            {
+                ModelState.AddModelError("", "Failed to load the daily schedule");
+                return View(new List<MedicationDTO>());
+            }
+
+            return View(response.Data);
+        }
     }
 }

@@ -10,4 +10,5 @@ public interface IMedicationService
     Task<Medication> GetMedicationByIdAsync(int id);
     Task<bool> DeleteMedicationAsync(int id);
     Task<bool> UpdateMedicationAsync(MedicationDTO medicationDTO);
+    Task<List<Medication>> GetDailyScheduleAsync(int userId, DateTime date);
 }
