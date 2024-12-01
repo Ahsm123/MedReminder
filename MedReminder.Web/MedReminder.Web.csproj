@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MedReminder.ApiClient\MedReminder.ApiClient.csproj" />
     <ProjectReference Include="..\MedReminder.Shared\MedReminder.Shared.csproj" />
   </ItemGroup>
 

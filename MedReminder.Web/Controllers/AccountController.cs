@@ -1,18 +1,19 @@
-﻿using MedReminder.Shared.DTOs;
+﻿using MedReminder.ApiClient;
+using MedReminder.Shared.DTOs;
+using MedReminder.Web.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using RestSharp;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 
 namespace MedReminder.Web.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly RestClient _restClient;
+        private readonly IApiClient _apiClient;
+        private readonly ICookieService _cookieService;
 
-        public AccountController()
+        public AccountController(IApiClient apiClient, ICookieService cookieService)
         {
-            _restClient = new RestClient("https://localhost:7023/api/v1/");
+            _apiClient = apiClient;
+            _cookieService = cookieService;
         }
         public IActionResult Register()
         {
@@ -27,10 +28,8 @@ namespace MedReminder.Web.Controllers
                 return View(registerDTO);
             }
 
-            var request = new RestRequest("Auth/Register", Method.Post);
-            request.AddJsonBody(registerDTO);
+            var response = await _apiClient.PostAsync<RegisterDTO>("Auth/Register", registerDTO);
 
-            var response = await _restClient.ExecuteAsync(request);
 
             if (!response.IsSuccessful)
             {
@@ -54,49 +53,22 @@ namespace MedReminder.Web.Controllers
                 return View(loginDTO);
             }
 
-            var request = new RestRequest("Auth/Login", Method.Post);
-            request.AddJsonBody(loginDTO);
-
-            var response = await _restClient.ExecuteAsync<LoginResponseDTO>(request);
-
+            var response = await _apiClient.PostAsync<LoginResponseDTO>("Auth/Login", loginDTO);
             if (!response.IsSuccessful)
             {
                 ModelState.AddModelError("", response.Content);
                 return View(loginDTO);
             }
 
-            var loginResponse = response.Data;
-
-            Response.Cookies.Append("JwtToken", loginResponse.Token, new CookieOptions
-            {
-                HttpOnly = true,
-                Secure = true,
-                Expires = DateTime.UtcNow.AddHours(1)
-            });
-
-
-            var userId = ExtractUserIdFromToken(loginResponse.Token);
-            if (int.TryParse(userId, out int parsedUserId))
-            {
-                return RedirectToAction("Index", "User", new { userId = parsedUserId });
-            }
-            ModelState.AddModelError("", "Failed to extract user id from token.");
-            return View(loginDTO);
+            _cookieService.SetJwtToken(response.Data.Token, TimeSpan.FromHours(1));
+            return RedirectToAction("Index", "User");
 
         }
 
-        private string ExtractUserIdFromToken(string token)
-        {
-            var handler = new JwtSecurityTokenHandler();
-            var jwtToken = handler.ReadJwtToken(token);
-            var userIdClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
-
-            return userIdClaim?.Value ?? string.Empty;
-        }
 
         public IActionResult Logout()
         {
-            Response.Cookies.Delete("JwtToken");
+            _cookieService.DeleteJwtToken();
             return RedirectToAction("Login");
         }
 
