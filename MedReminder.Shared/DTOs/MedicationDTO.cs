@@ -11,4 +11,6 @@ public class MedicationDTO
     public string Description { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
+    public TimeSpan TimeToTake { get; set; }
+    public string RecurrencePattern { get; set; } = "Daily";
 }

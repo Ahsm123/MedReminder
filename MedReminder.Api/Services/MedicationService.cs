@@ -47,4 +47,33 @@ public class MedicationService : IMedicationService
         var isUpdated = await _medicationDao.UpdateMedicationAsync(medication);
         return isUpdated;
     }
+
+    public async Task<List<Medication>> GetDailyScheduleAsync(int userId, DateTime date) //TODO: Gør det mere robust, tilføj evt. enums for type safety
+    {
+        var medications = await _medicationDao.GetMedicationsByUserIdAsync(userId);
+
+        return medications
+            .Where(m =>
+            {
+                if (m.RecurrencePattern == "Daily")
+                    return true;
+
+                if (m.RecurrencePattern.StartsWith("Every"))
+                {
+                    var days = int.Parse(m.RecurrencePattern.Replace("Every ", "").Replace(" days", ""));
+                    return (date - m.StartDate).Days % days == 0;
+                }
+
+                if (m.RecurrencePattern.StartsWith("Weekly"))
+                {
+                    var day = m.RecurrencePattern.Replace("Weekly - ", "");
+                    return date.DayOfWeek.ToString() == day;
+                }
+
+                return false;
+            })
+            .Where(m => m.StartDate <= date && m.EndDate >= date)
+            .ToList();
+    }
+
 }

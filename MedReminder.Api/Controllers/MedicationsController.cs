@@ -54,6 +54,18 @@ namespace MedReminder.Api.Controllers
             if (!await _medicationService.UpdateMedicationAsync(medicationDTO)) { return NotFound(); }
             return Ok();
         }
+
+        [HttpGet("user/{userId}/schedule")] //TODO: Medicinen vises på de rigtige dage, men alle vises med gentagelse "Daily"
+        public async Task<IActionResult> GetDailySchedule(int userId, [FromQuery] DateTime? date)
+        {
+            var selectedDate = date ?? DateTime.Now;
+            var medications = await _medicationService.GetDailyScheduleAsync(userId, selectedDate);
+            if (!medications.Any()) { return NotFound("No medications scheduled for today."); }
+
+            var medicationDtos = medications.Select(m => m.ToDTO()).ToList();
+            return Ok(medicationDtos);
+
+        }
     }
 }
 

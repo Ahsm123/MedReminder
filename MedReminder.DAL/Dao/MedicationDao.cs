@@ -9,14 +9,14 @@ public class MedicationDao : IMedicationDao
 {
     private const string GetMedicationByIdQuery = "SELECT * FROM Medications WHERE Id = @Id";
     private const string CreateMedicationQuery = @"
-            INSERT INTO Medications (UserId, Name, Dosage, DosageUnit, Instructions, Description, StartDate, EndDate)
-            VALUES (@UserId, @Name, @Dosage, @DosageUnit, @Instructions, @Description, @StartDate, @EndDate);
+            INSERT INTO Medications (UserId, Name, Dosage, DosageUnit, Instructions, Description, StartDate, EndDate, TimeToTake)
+            VALUES (@UserId, @Name, @Dosage, @DosageUnit, @Instructions, @Description, @StartDate, @EndDate, @TimeToTake);
             SELECT CAST(SCOPE_IDENTITY() as int)";
     private const string GetMedicationsByUserIdQuery = "SELECT * FROM Medications WHERE UserId = @UserId";
     private const string DeleteMedicationQuery = "DELETE FROM Medications WHERE Id = @Id";
     private const string UpdateMedicationQuery = @"
             UPDATE Medications
-            SET Name = @Name, Dosage = @Dosage, DosageUnit = @DosageUnit, Instructions = @Instructions, Description = @Description, StartDate = @StartDate, EndDate = @EndDate
+            SET Name = @Name, Dosage = @Dosage, DosageUnit = @DosageUnit, Instructions = @Instructions, Description = @Description, StartDate = @StartDate, EndDate = @EndDate, TimeToTake = @TimeToTake
             WHERE Id = @Id";
 
 
