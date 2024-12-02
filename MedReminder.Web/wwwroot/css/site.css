@@ -19,10 +19,47 @@ html {
 
 body {
     margin-bottom: 60px;
+    font: 14px 'Open Sans', sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 23px;
+    color: #444;
+    background-color: white;
+    padding: 0px;
+    margin: 0px;
 }
 
 .navbar-light {
-    background-color: rgb(249, 213, 187) !important;
+    background-color: transparent !important;
     border: none !important;
-    border-width: 0 !important;
+    border-width !important;
+    font-size: 18px;
+    font: 14px 'Open Sans', sans-serif;
 }
+
+.nav-item {
+    width: 100%;
+    padding: 0.50px;
+    margin: 10px;
+    float: right;
+}
+
+navbar-nav .nav-link.active,
+.navbar-nav .nav-link:hover {
+  background-color: transparent;
+  }
+
+.bg-image-vertical {
+    position: relative;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: auto 100%;
+}
+
+@media (min-width: 1025px) {
+    .h-custom-2 {
+        height: 100%;
+    }
+}
+
