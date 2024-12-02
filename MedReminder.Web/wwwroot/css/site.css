@@ -49,6 +49,56 @@ navbar-nav .nav-link.active,
   background-color: transparent;
   }
 
+.custom-navbar {
+    background: ; /* Gradient baggrund */
+    border-radius: 12px; /* Runde hjørner */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Let skygge */
+    padding: 10px 20px;
+}
+
+    .custom-navbar .navbar-brand img {
+        max-height: 50px; /* Sørger for logoet er proportionalt */
+        transition: transform 0.3s ease;
+    }
+
+        .custom-navbar .navbar-brand img:hover {
+            transform: scale(1.1); /* Let zoom-effekt ved hover */
+        }
+
+    .custom-navbar .nav-link {
+        color: black; /* Hvid tekst */
+        font-weight: bold;
+        font-size: 1rem;
+        margin-left: 15px; /* Giver luft mellem links */
+        transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+        .custom-navbar .nav-link:hover {
+            color: red; /* Guld hover-effekt */
+            transform: translateY(-3px); /* Løft link ved hover */
+        }
+
+    .custom-navbar .navbar-toggler {
+        background-color: rgba(255, 255, 255, 0.8); /* Gennemsigtig knap baggrund */
+        border: none;
+    }
+
+    .custom-navbar .navbar-toggler-icon {
+        background-image: url('data:image/svg+xml;charset=UTF8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"%3E%3Cpath stroke="rgba%28255, 255, 255, 0.5%29" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"/%3E%3C/svg%3E');
+    }
+
+    .custom-navbar .nav-item:last-child .nav-link {
+        background: rgba(255, 255, 255, 0.2); /* Semi-transparent baggrund for sidste link */
+        padding: 5px 10px;
+        border-radius: 8px;
+        transition: background 0.3s ease;
+    }
+
+        .custom-navbar .nav-item:last-child .nav-link:hover {
+            background: rgba(255, 255, 255, 0.4); /* Mere opaque hover-effekt */
+        }
+
+
 .bg-image-vertical {
     position: relative;
     overflow: hidden;
@@ -63,3 +113,66 @@ navbar-nav .nav-link.active,
     }
 }
 
+.logo-img {
+    max-height: 40px; /* Ensures the navbar height remains the same */
+    width: auto; /* Maintains the aspect ratio */
+    transform: scale(1.5); /* Scales the image proportionally */
+    transition: transform 0.2s ease-in-out; /* Smooth scaling effect */
+}
+
+    .logo-img:hover {
+        transform: scale(1.7); /* Optional: Slight hover effect for interaction */
+    }
+
+
+.card {
+    background-color: #f9f9f9; /* Lys baggrundsfarve */
+    border: 1px solid #ddd; /* Tynd kant */
+    border-radius: 8px; /* Runde hjørner */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Let skygge */
+    padding: 20px; /* Indre afstand */
+    margin: 15px 0; /* Ydre afstand */
+}
+
+    .card h2 {
+        font-size: 1.5rem;
+        color: #333;
+    }
+
+    .card p, .card ul {
+        text-align: left; /* Venstrejustering for læsbarhed */
+    }
+
+    .card ul {
+        list-style-type: disc; /* Punktliste */
+        margin-left: 20px;
+    }
+
+.container {
+    max-width: 1200px;
+}
+.form-section {
+    padding: 50px 0; /* Tilføj afstand for at undgå overlap med footeren */
+    background-color: white; /* Let baggrundsfarve */
+}
+
+    .form-section .container {
+        max-width: 800px; /* Gør sektionen smallere */
+    }
+
+    .form-section .card {
+       
+    }
+
+    .form-section img {
+        max-height: 300px; /* Reducer billedstørrelse */
+        object-fit: contain; /* Sørg for at billede holder proportioner */
+    }
+
+    .form-section .btn {
+        border-radius: 5px; /* Giv knapperne en rundet stil */
+    }
+
+    .form-section p {
+        margin-bottom: 20px; /* Gør afstanden lidt mindre */
+    }
