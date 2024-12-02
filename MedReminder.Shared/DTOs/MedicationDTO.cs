@@ -1,16 +1,28 @@
-﻿namespace MedReminder.Shared.DTOs;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MedReminder.Shared.DTOs;
 
 public class MedicationDTO
 {
     public int Id { get; set; }
+    [Required]
     public int UserId { get; set; }
+    [Required]
     public string Name { get; set; }
+    [Required]
     public int Dosage { get; set; }
+    [Required]
     public string DosageUnit { get; set; }
+    [Required]
     public string Instructions { get; set; }
+    [Required]
     public string Description { get; set; }
+    [Required]
     public DateTime StartDate { get; set; }
+    [Required]
     public DateTime EndDate { get; set; }
+    [Required]
     public TimeSpan TimeToTake { get; set; }
+    [Required]
     public string RecurrencePattern { get; set; } = "Daily";
 }
