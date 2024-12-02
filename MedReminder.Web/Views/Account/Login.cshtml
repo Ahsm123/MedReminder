@@ -1,8 +1,36 @@
 ﻿@model MedReminder.Shared.DTOs.LoginDTO
 @*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
+<div class="container mt-5" style="max-width: 400px;">
+	<form asp-action="Login" method="post" class="p-4 shadow rounded bg-white">
+		<div class="form-floating mb-3">
+			<input asp-for="Email" class="form-control" id="floatingInput" placeholder="name@example.com" type="email">
+			<label for="floatingInput">Email</label>
+		</div>
+		<div class="form-floating mb-3">
+			<input asp-for="Password" class="form-control" id="floatingPassword" placeholder="Password" type="password">
+			<label for="floatingPassword">Password</label>
+		</div>
+		<button type="submit"
+				class="btn btn-primary w-100"
+				onclick="validateForm(event)">
+			Login
+		</button>
+		<div class="form-check mb-3">
+			<input class="form-check-input"
+				   type="checkbox"
+				   id="rememberMeCheckbox">
+			<label class="form-check-label" for="rememberMeCheckbox">Remember me</label>
+		</div>
+		<div class="mt-3 text-center">
+			<a href="#" class="text-muted small">Forgot your password?</a>
+		</div>
+	</form>
+</div>
+
+
+
 
 

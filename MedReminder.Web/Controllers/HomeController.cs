@@ -21,6 +21,10 @@ namespace MedReminder.Web.Controllers
 
         public IActionResult Index()
         {
+            var jwtToken = _cookieService.GetJwtToken();
+            var isLoggedIn = !string.IsNullOrEmpty(jwtToken);
+
+            ViewBag.IsLoggedIn = isLoggedIn;
             return View();
         }
 

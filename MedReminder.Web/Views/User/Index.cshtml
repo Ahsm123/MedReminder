@@ -1,47 +1,66 @@
 ﻿@model List<MedReminder.Shared.DTOs.MedicationDTO>
 
-<h1>Your Medications</h1>
+<h1 class="mb-4">Din medicin</h1>
 
 @if (Model.Any())
 {
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Dosage</th>
-                <th>Instructions</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Description</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var medication in Model)
-            {
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead class="table-dark">
                 <tr>
-                    <td>@medication.Name</td>
-                    <td>@medication.Dosage @medication.DosageUnit</td>
-                    <td>@medication.Instructions</td>
-                    <td>@medication.StartDate.ToShortDateString()</td>
-                    <td>@medication.EndDate.ToShortDateString()</td>
-                    <td>@medication.Description</td>
-                    <td>
-                        <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete(@medication.Id, @ViewData["UserId"])">Fjern</button>
-                        <a asp-controller="Medication" asp-action="Edit" asp-route-id="@medication.Id" class="btn btn-warning btn-sm ms-2">Opdater</a>
-                    </td>
+                    <th scope="col">Navn</th>
+                    <th scope="col">Dose</th>
+                    <th scope="col">Instruktioner</th>
+                    <th scope="col">Start dato</th>
+                    <th scope="col">Slut dato</th>
+                    <th scope="col">Beskrivelse</th>
+                    <th scope="col">Muligheder</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-
+            </thead>
+            <tbody>
+                @foreach (var medication in Model)
+                {
+                    <tr>
+                        <td>@medication.Name</td>
+                        <td>@medication.Dosage @medication.DosageUnit</td>
+                        <td>@medication.Instructions</td>
+                        <td>@medication.StartDate.ToShortDateString()</td>
+                        <td>@medication.EndDate.ToShortDateString()</td>
+                        <td>@medication.Description</td>
+                        <td>
+                            <div class="d-flex">
+                                <button type="button"
+                                        class="btn btn-danger btn-sm"
+                                        onclick="confirmDelete(@medication.Id, @ViewData["UserId"])"
+                                        aria-label="Remove Medication">
+                                    <i class="bi bi-trash"></i> Fjern
+                                </button>
+                                <a asp-controller="Medication"
+                                   asp-action="Edit"
+                                   asp-route-id="@medication.Id"
+                                   class="btn btn-warning btn-sm ms-2"
+                                   aria-label="Update Medication">
+                                    <i class="bi bi-pencil-square"></i> Opdater
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }
 else
 {
-	<p class="text-muted">You don't have any medications yet.</p>
+    <p class="text-muted">You don't have any medications yet.</p>
 }
 
-<a asp-controller="Medication" asp-action="Create" asp-route-userId="@ViewData["UserId"]" class="btn btn-primary mt-3">Tilføj</a>
+<a asp-controller="Medication"
+   asp-action="Create"
+   asp-route-userId="@ViewData["UserId"]"
+   class="btn btn-primary mt-3">
+    <i class="bi bi-plus-circle"></i> Tilføj
+</a>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -60,7 +79,7 @@ else
             if (result.isConfirmed) {
                 const form = document.createElement('form');
                 form.method = 'post';
-                form.action = `/Medication/Delete`; 
+                form.action = `/Medication/Delete`;
 
                 const idField = document.createElement('input');
                 idField.type = 'hidden';
@@ -80,4 +99,3 @@ else
         });
     }
 </script>
-

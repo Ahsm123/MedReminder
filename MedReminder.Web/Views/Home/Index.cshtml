@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Hjem";
+    var isLoggedIn = ViewBag.IsLoggedIn as bool? ?? false;
 }
 <head>
 <div class="text-center">
@@ -12,55 +13,89 @@
 
 <br />
 
-        <br />
-    <div class="container text-center">
-        <div class="row">
-            <div class="col">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            Min Medicin <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-capsule" viewBox="0 0 16 16">
-                                <path d="M1.828 8.9 8.9 1.827a4 4 0 1 1 5.657 5.657l-7.07 7.071A4 4 0 1 1 1.827 8.9Zm9.128.771 2.893-2.893a3 3 0 1 0-4.243-4.242L6.713 5.429z" />
-                            </svg>
-                        </h5>
-                        <p class="card-text">Klik på knappen nedenfor for at se din medicinliste og holde styr på din medicin.</p>
-                        <a href="#" class="btn btn-danger">Min Medicin</a>
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1 class="display-3 fw-bold text-primary">MediHusk</h1>
+        <p class="lead text-muted">
+            Tag kontrol over din medicinrutine i dag – opret dig på vores hjemmeside og oplev, hvor simpelt det kan være!
+        </p>
+    </div>
+
+    <div class="row text-center justify-content-center gy-4">
+        <!-- Min Medicin -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow h-100">
+                <div class="card-body">
+                    <div class="icon-box bg-danger text-white rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                        <i class="bi bi-capsule fs-4"></i>
                     </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            Mediven<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-add" viewBox="0 0 16 16">
-                                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4" />
-                                <path d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z" />
-                            </svg>
-                        </h5>
-                        <p class="card-text">
-                            En Mediven er en støtteperson, der hjælper borgere eller pårørende med at opsætte og anvende deres medicinhusker. Med en Mediven bliver det nemmere og mere sikkert at håndtere medicinen i hverdagen.
-                        </p>
-                        <a href="#" class="btn btn-danger">Tilføj Mediven</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            Login<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-heart" viewBox="0 0 16 16">
-                                <path d="M10.058.501a.5.5 0 0 0-.5-.501h-2.98c-.276 0-.5.225-.5.501A.5.5 0 0 1 5.582 1a.497.497 0 0 0-.497.497V2a.5.5 0 0 0 .5.5h4.968a.5.5 0 0 0 .5-.5v-.503A.497.497 0 0 0 10.555 1a.5.5 0 0 1-.497-.499" />
-                                <path d="M3.605 2a.5.5 0 0 0-.5.5v12a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-12a.5.5 0 0 0-.5-.5h-.5a.5.5 0 0 1 0-1h.5a1.5 1.5 0 0 1 1.5 1.5v12a1.5 1.5 0 0 1-1.5 1.5h-9a1.5 1.5 0 0 1-1.5-1.5v-12a1.5 1.5 0 0 1 1.5-1.5h.5a.5.5 0 0 1 0 1z" />
-                                <path d="M8.068 6.482c1.656-1.673 5.795 1.254 0 5.018-5.795-3.764-1.656-6.69 0-5.018" />
-                            </svg>
-                        </h5>
-                        <p class="card-text">Klik på knappen nedenfor for at logge ind og få adgang til din konto.</p>
-                        <a asp-controller="account" asp-action="login" class="btn btn-danger">Login</a>
-                    </div>
+                    <h5 class="card-title fw-bold">Min Medicin</h5>
+                    <p class="card-text text-muted">Klik på knappen nedenfor for at se din medicinliste og holde styr på din medicin.</p>
+                    <a asp-action="Index" asp-controller="User" class="btn btn-danger">Min Medicin</a>
                 </div>
             </div>
         </div>
+
+        <!-- Mediven -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow h-100">
+                <div class="card-body">
+                    <div class="icon-box bg-primary text-white rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                        <i class="bi bi-person-add fs-4"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Mediven</h5>
+                    <p class="card-text text-muted">
+                        En Mediven er en støtteperson, der hjælper borgere eller pårørende med at opsætte og anvende deres medicinhusker. Med en Mediven bliver det nemmere og mere sikkert at håndtere medicinen i hverdagen.
+                    </p>
+                    <a href="#" class="btn btn-primary">Tilføj Mediven</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login -->
+        @if (!isLoggedIn)
+        {
+            <div class="col-md-4">
+                <div class="card border-0 shadow h-100">
+                    <div class="card-body">
+                        <div class="icon-box bg-success text-white rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                            <i class="bi bi-clipboard2-heart fs-4"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">Login</h5>
+                        <p class="card-text text-muted">Klik på knappen nedenfor for at logge ind og få adgang til din konto.</p>
+                        <a asp-controller="account" asp-action="login" class="btn btn-success">Login</a>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 </div>
 <br />
 </body>
+
+<style>
+    .btn {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .icon-box {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .icon-box:hover {
+        transform: scale(1.1);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    media (max-width: 768px) {
+        .display-3 {
+            font-size: 2.5rem;
+        }
+        .lead {
+            font-size: 1rem;
+        }
+    }
+</style>

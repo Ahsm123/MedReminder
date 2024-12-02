@@ -5,51 +5,67 @@
     var selectedDate = ViewBag.SelectedDate as DateTime? ?? DateTime.UtcNow.Date;
 }
 
-<h1 class="text-center">Daglig Medicinplan</h1>
+<h1 class="text-center my-4 text-primary">Daglig Medicinplan</h1>
 
-<div class="container text-center mt-4">
-    <form method="get" asp-action="DailySchedule" asp-controller="Medication">
-        <label for="date">Vælg dato:</label>
-        <input type="date" id="date" name="date" value="@selectedDate.ToString("yyyy-MM-dd")" class="form-control-inline">
-        <button type="submit" class="btn btn-primary">Vis</button>
+<div class="container">
+    <!-- Date Selector -->
+    <form method="get" asp-action="DailySchedule" asp-controller="Medication" class="row g-3 align-items-center justify-content-center mb-4">
+        <div class="col-auto">
+            <label for="date" class="form-label fw-bold">Vælg dato:</label>
+        </div>
+        <div class="col-auto">
+            <input type="date" id="date" name="date" value="@selectedDate.ToString("yyyy-MM-dd")" class="form-control">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-calendar-event"></i> Vis
+            </button>
+        </div>
     </form>
 
-    <div class="mt-3">
-        <a asp-action="DailySchedule" asp-controller="Medication" asp-route-date="@selectedDate.AddDays(-1).ToString("yyyy-MM-dd")" class="btn btn-outline-secondary">Forrige Dag</a>
-        <a asp-action="DailySchedule" asp-controller="Medication" asp-route-date="@selectedDate.AddDays(1).ToString("yyyy-MM-dd")" class="btn btn-outline-secondary">Næste Dag</a>
+    <!-- Navigation Buttons -->
+    <div class="text-center mb-4">
+        <a asp-action="DailySchedule" asp-controller="Medication" asp-route-date="@selectedDate.AddDays(-1).ToString("yyyy-MM-dd")" class="btn btn-outline-secondary me-2">
+            <i class="bi bi-chevron-left"></i> Forrige Dag
+        </a>
+        <a asp-action="DailySchedule" asp-controller="Medication" asp-route-date="@selectedDate.AddDays(1).ToString("yyyy-MM-dd")" class="btn btn-outline-secondary">
+            Næste Dag <i class="bi bi-chevron-right"></i>
+        </a>
     </div>
-</div>
 
-@if (Model != null && Model.Any())
-{
-    <div class="container mt-4">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Tid</th>
-                    <th>Medicin</th>
-                    <th>Dosis</th>
-                    <th>Instruktioner</th>
-                    <th>Gentagelse</th> 
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var medication in Model.OrderBy(m => m.TimeToTake))
-                {
+    <!-- Medication Table -->
+    @if (Model != null && Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-striped align-middle">
+                <thead class="table-dark">
                     <tr>
-                        <td>@medication.TimeToTake.ToString(@"hh\:mm")</td>
-                        <td>@medication.Name</td>
-                        <td>@medication.Dosage @medication.DosageUnit</td>
-                        <td>@medication.Instructions</td>
-                        <td>@medication.RecurrencePattern</td>
+                        <th scope="col"><i class="bi bi-clock"></i> Tid</th>
+                        <th scope="col"><i class="bi bi-capsule"></i> Medicin</th>
+                        <th scope="col"><i class="bi bi-droplet"></i> Dosis</th>
+                        <th scope="col"><i class="bi bi-clipboard"></i> Instruktioner</th>
+                        <th scope="col"><i class="bi bi-arrow-repeat"></i> Gentagelse</th>
                     </tr>
-                }
-            </tbody>
-        </table>
-
-    </div>
-}
-else
-{
-    <p class="text-center mt-4">Ingen medicin planlagt for @selectedDate.ToShortDateString().</p>
-}
+                </thead>
+                <tbody>
+                    @foreach (var medication in Model.OrderBy(m => m.TimeToTake))
+                    {
+                        <tr>
+                            <td>@medication.TimeToTake.ToString(@"hh\:mm")</td>
+                            <td>@medication.Name</td>
+                            <td>@medication.Dosage @medication.DosageUnit</td>
+                            <td>@medication.Instructions</td>
+                            <td>@medication.RecurrencePattern</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p class="text-center mt-4 text-muted">
+            <i class="bi bi-info-circle"></i> Ingen medicin planlagt for @selectedDate.ToShortDateString().
+        </p>
+    }
+</div>
