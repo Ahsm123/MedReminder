@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedReminder.ApiClient", "Me
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedReminder.Dal", "MedReminder.DAL\MedReminder.Dal.csproj", "{8E07BD44-820B-431C-97E0-7C5E8E306ABF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedReminder.Shared", "MedReminder.Shared\MedReminder.Shared.csproj", "{CBC7AA22-5C1B-48F6-A7DD-3153B6319B16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedReminder.Shared", "MedReminder.Shared\MedReminder.Shared.csproj", "{CBC7AA22-5C1B-48F6-A7DD-3153B6319B16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedReminder.Test", "MedReminder.Test\MedReminder.Test.csproj", "{A72C6895-FB53-4AB6-8E26-F1DD11D64643}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{CBC7AA22-5C1B-48F6-A7DD-3153B6319B16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBC7AA22-5C1B-48F6-A7DD-3153B6319B16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBC7AA22-5C1B-48F6-A7DD-3153B6319B16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A72C6895-FB53-4AB6-8E26-F1DD11D64643}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A72C6895-FB53-4AB6-8E26-F1DD11D64643}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A72C6895-FB53-4AB6-8E26-F1DD11D64643}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A72C6895-FB53-4AB6-8E26-F1DD11D64643}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

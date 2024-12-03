@@ -18,9 +18,9 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 // Register services
 builder.Services.AddSingleton<ISmsService, TwilioSmsService>();
 
-
-builder.Services.AddScoped<IMedicationDao>(_ => new MedicationDao(connectionString));
-builder.Services.AddScoped<IUserDao>(_ => new UserDao(connectionString));
+builder.Services.AddSingleton<IConnectionFactory>(_ => new ConnectionFactory(connectionString));
+builder.Services.AddScoped<IMedicationDao, MedicationDao>();
+builder.Services.AddScoped<IUserDao, UserDao>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IMedicationService, MedicationService>();
 
