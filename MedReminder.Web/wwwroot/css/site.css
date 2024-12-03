@@ -29,71 +29,54 @@ body {
     margin: 0px;
 }
 
-/* Generel navbar styling */
-.navbar-light {
-    background-color: red !important; /* Rød baggrund */
-    border: solid; !important;
-    font-size: 18px;
-    font-family: 'Open Sans', sans-serif; /* Mere konsekvent font */
-}
-
-/* Nav item styling */
-.nav-item {
-    width: 100%; /* Fuld bredde for nav items */
-    padding: 5px; /* Lidt mere plads mellem links */
-    margin: 10px 0; /* Vertikal margin for luft */
-}
-
-/* Aktive og hover-tilstande for nav links */
-.navbar-nav .nav-link.active,
-.navbar-nav .nav-link:hover {
-    background-color: transparent; /* Ingen baggrund ved hover */
-    color: white; /* Hvid tekstfarve for bedre kontrast */
-    font-weight: bold;
-}
-
-/* Custom navbar styling */
+/* Generel styling for navbar */
 .custom-navbar {
-    border-radius: 12px; /* Runde hjørner */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Let skygge */
-    padding: 10px 20px;
-    background-color: rgb(220, 53, 69) !important; /* Tving rød baggrund */
+    background-color: white;
+    border: 2px solid rgb(246, 103, 103);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 10px 20px;
 }
 
     /* Logo styling */
     .custom-navbar .navbar-brand img {
-        max-height: 50px; /* Logoet passer til navbaren */
-        transition: transform 0.3s ease; /* Glidende zoom-effekt */
+        max-height: 50px;
+        transition: transform 0.3s ease;
     }
 
         .custom-navbar .navbar-brand img:hover {
-            transform: scale(1.1); /* Zoom ind ved hover */
+            transform: scale(1.1);
         }
 
-    /* Link styling */
-    .custom-navbar .nav-link {
-        color: black; /* Sort tekst som standard */
-        font-weight: bold;
-        font-size: 1rem;
-        margin-left: 15px; /* Luft mellem links */
-        transition: color 0.3s ease, transform 0.3s ease; /* Glidende effekter */
+/* Knappestil for links */
+.navbar-nav .btn {
+    color: white;
+    background-color: rgb(220, 53, 69);
+    border: none;
+    font-size: 1rem;
+    margin-left: 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+    .navbar-nav .btn:hover {
+        background-color: #d85c5c;
+        transform: translateY(-3px);
     }
 
-        .custom-navbar .nav-link:hover {
-            color: white; /* Hvid tekst ved hover */
-            transform: translateY(-3px); /* Løfter link ved hover */
-        }
+/* Toggler styling */
+.custom-navbar .navbar-toggler {
+    background-color: rgb(220, 53, 69);
+    border: none;
+    color: white;
+}
 
-    /* Toggler styling */
-    .custom-navbar .navbar-toggler {
-        background-color: red; /* Gennemsigtig baggrund */
-        border: none;
+/* Responsiv styling */
+@media (max-width: 768px) {
+    .navbar-nav .btn {
+        width: 100%;
+        margin: 5px 0;
     }
-
-    .custom-navbar .navbar-toggler-icon {
-        background-image: url('data:image/svg+xml;charset=UTF8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"%3E%3Cpath stroke="rgba%28255, 255, 255, 0.5%29" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"/%3E%3C/svg%3E');
-    }
+}
 
 
 .bg-image-vertical {
