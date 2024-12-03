@@ -11,11 +11,11 @@ public class UserDao : IUserDao
     private const string GetUserByEmailSql = @" SELECT * FROM Users WHERE Email = @Email";
     private const string CreateUserSql = @"INSERT INTO Users (FirstName, LastName, Email, PasswordHash, CreatedAt) VALUES (@FirstName, @LastName, @Email, @PasswordHash, @CreatedAt) SELECT SCOPE_IDENTITY()";
 
-    private readonly string _connectionString;
+    private readonly IConnectionFactory _connectionFactory;
 
-    public UserDao(string connectionString)
+    public UserDao(IConnectionFactory connectionFactory)
     {
-        _connectionString = connectionString;
+        _connectionFactory = connectionFactory;
     }
 
     public async Task<User> GetByIdAsync(int id)
@@ -27,8 +27,7 @@ public class UserDao : IUserDao
 
         try
         {
-            using var connection = new SqlConnection(_connectionString);
-            await connection.OpenAsync();
+            using var connection = _connectionFactory.CreateConnection();
 
             var user = await connection.QueryFirstOrDefaultAsync<User>(GetByIdSql, new { Id = id });
             if (user == null)
@@ -39,7 +38,7 @@ public class UserDao : IUserDao
         }
         catch (SqlException ex)
         {
-            throw new Exception("An error occurred while getting user by id", ex);
+            throw new DataAccessException("An error occurred while getting user by id", ex);
         }
     }
 
@@ -53,8 +52,7 @@ public class UserDao : IUserDao
 
         try
         {
-            using var connection = new SqlConnection(_connectionString);
-            await connection.OpenAsync();
+            using var connection = _connectionFactory.CreateConnection();
 
             var id = await connection.ExecuteScalarAsync<int>(CreateUserSql, user);
 
@@ -62,7 +60,7 @@ public class UserDao : IUserDao
         }
         catch (SqlException ex)
         {
-            throw new Exception("An error occurred while creating the user.", ex);
+            throw new DataAccessException("An error occurred while creating the user.", ex);
         }
 
     }
@@ -76,15 +74,14 @@ public class UserDao : IUserDao
 
         try
         {
-            using var connection = new SqlConnection(_connectionString);
-            await connection.OpenAsync();
+            using var connection = _connectionFactory.CreateConnection();
 
             var user = await connection.QueryFirstOrDefaultAsync<User>(GetUserByEmailSql, new { Email = email });
             return user;
         }
         catch (SqlException ex)
         {
-            throw new Exception("An error occurred while getting user by email", ex);
+            throw new DataAccessException("An error occurred while getting user by email", ex);
         }
     }
 }
