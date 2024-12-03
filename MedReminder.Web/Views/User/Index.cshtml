@@ -1,128 +1,145 @@
 ﻿@model List<MedReminder.Shared.DTOs.MedicationDTO>
 
 <div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar -->
-        <nav class="col-md-3 col-lg-2 d-md-block sidebar-modern bg-dark text-light">
-            <div class="position-sticky">
-                <div class="sidebar-header text-center py-3 border-bottom">
-                    <h5 class="mb-0">Dashboard</h5>
-                </div>
-                <ul class="nav flex-column mt-3">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">
-                            <i class="bi bi-house-door me-2"></i> Oversigt
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Index", "Medication")">
-                            <i class="bi bi-prescription me-2"></i> Din medicin
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-chat-left-text me-2"></i> SMS Service
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-gear me-2"></i> Kontoindstillinger
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+	<div class="row">
+		<!-- Sidebar -->
+		<nav class="col-md-3 col-lg-2 d-md-block sidebar-modern bg-dark text-light">
+			<div class="position-sticky">
+				<div class="sidebar-header text-center py-3 border-bottom">
+					<h5 class="mb-0">Dashboard</h5>
+				</div>
+				<ul class="nav flex-column mt-3">
+					<li class="nav-item">
+						<a class="nav-link active" href="#">
+							<i class="bi bi-house-door me-2"></i> Oversigt
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="@Url.Action("Index", "Medication")">
+							<i class="bi bi-prescription me-2"></i> Din medicin
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="bi bi-chat-left-text me-2"></i> SMS Service
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="bi bi-gear me-2"></i> Kontoindstillinger
+						</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
 
-        <!-- Main Content -->
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <h1 class="mb-4">Din medicin</h1>
 
-            @if (Model.Any())
-            {
-                <div class="table-responsive">
-                    <table class="table table-striped align-middle">
-                        <thead class="table-dark">
-                            <tr>
-                                <th scope="col">Navn</th>
-                                <th scope="col">Dose</th>
-                                <th scope="col">Instruktioner</th>
-                                <th scope="col">Start dato</th>
-                                <th scope="col">Slut dato</th>
-                                <th scope="col">Beskrivelse</th>
-                                <th scope="col">Muligheder</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var medication in Model)
-                            {
-                                <tr>
-                                    <td>@medication.Name</td>
-                                    <td>@medication.Dosage @medication.DosageUnit</td>
-                                    <td>@medication.Instructions</td>
-                                    <td>@medication.StartDate.ToShortDateString()</td>
-                                    <td>@medication.EndDate.ToShortDateString()</td>
-                                    <td>@medication.Description</td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <button type="button"
-                                                    class="btn btn-danger btn-sm"
-                                                    onclick="confirmDelete(@medication.Id, @ViewData["UserId"])"
-                                                    aria-label="Remove Medication">
-                                                <i class="bi bi-trash"></i> Fjern
-                                            </button>
-                                            <a asp-controller="Medication"
-                                               asp-action="Edit"
-                                               asp-route-id="@medication.Id"
-                                               class="btn btn-warning btn-sm ms-2"
-                                               aria-label="Update Medication">
-                                                <i class="bi bi-pencil-square"></i> Opdater
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            }
-            else
-            {
-                <p class="text-muted">You don't have any medications yet.</p>
-            }
 
-            <a asp-controller="Medication"
-               asp-action="Create"
-               asp-route-userId="@ViewData["UserId"]"
-               class="btn btn-primary mt-3">
-                <i class="bi bi-plus-circle"></i> Tilføj
-            </a>
-        </main>
-    </div>
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+	<h1 class="mb-4">Din medicin</h1>
+
+	<div class="d-flex justify-content-between align-items-center mb-3">
+		<a asp-controller="Medication"
+		   asp-action="Create"
+		   asp-route-userId="@ViewData["UserId"]"
+		   class="btn btn-primary">
+			<i class="bi bi-plus-circle"></i> Tilføj
+		</a>
+	</div>
+
+			@if (Model.Any())
+			{
+					<div class="table-responsive">
+						<table class="table table-striped align-middle">
+							<thead class="table-dark">
+								<tr>
+									<th scope="col">Navn</th>
+									<th scope="col">Dose</th>
+									<th scope="col">Instruktioner</th>
+									<th scope="col">Start dato</th>
+									<th scope="col">Slut dato</th>
+									<th scope="col">Beskrivelse</th>
+									<th scope="col">Muligheder</th>
+								</tr>
+							</thead>
+							<tbody>
+							@foreach (var medication in Model)
+							{
+										<tr>
+											<td>@medication.Name</td>
+											<td>@medication.Dosage @medication.DosageUnit</td>
+											<td>@medication.Instructions</td>
+											<td>@medication.StartDate.ToShortDateString()</td>
+											<td>@medication.EndDate.ToShortDateString()</td>
+											<td>@medication.Description</td>
+											<td>
+												<div class="d-flex">
+													<button type="button"
+															class="btn btn-danger btn-sm"
+															onclick="confirmDelete(@medication.Id, @ViewData["UserId"])"
+															aria-label="Remove Medication">
+														<i class="bi bi-trash"></i> Fjern
+													</button>
+													<a asp-controller="Medication"
+													   asp-action="Edit"
+													   asp-route-id="@medication.Id"
+													   class="btn btn-warning btn-sm ms-2"
+													   aria-label="Update Medication">
+														<i class="bi bi-pencil-square"></i> Opdater
+													</a>
+												</div>
+											</td>
+										</tr>
+							}
+							</tbody>
+						</table>
+					</div>
+			}
+			else
+			{
+					<p class="text-muted">You don't have any medications yet.</p>
+			}
+
+
+		</main>
+	</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-    function confirmDelete(medicationId, userId) {
-        Swal.fire({
-            title: 'Er du sikker?',
-            text: "Denne handling kan ikke fortrydes",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Ja!',
-            cancelButtonText: 'Annuller'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const form = document.createElement('form');
-                form.method = 'post';
-                form.action = `/Medication/Delete`;
+	function confirmDelete(medicationId, userId) {
+		Swal.fire({
+			title: 'Er du sikker?',
+			text: "Denne handling kan ikke fortrydes",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#d33',
+			cancelButtonColor: '#3085d6',
+			confirmButtonText: 'Ja!',
+			cancelButtonText: 'Annuller'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				const form = document.createElement('form');
+				form.method = 'post';
+				form.action = `/Medication/Delete`;
 
-                const idField = document.createElement('input');
-                idField.type = 'hidden';
-                idField.name = 'id';
-                idField.value = medicationId;
-                form.appendChild(idField);
+				const idField = document.createElement('input');
+				idField.type = 'hidden';
+				idField.name = 'id';
+				idField.value = medicationId;
+				form.appendChild(idField);
 
-                const userIdField
+				const userIdField
+				= document.createElement('input');
+				userIdField.type = 'hidden';
+				userIdField.name = 'userId';
+				userIdField.value = userId;
+				form.appendChild(userIdField);
+
+				document.body.appendChild(form);
+				form.submit();
+				}
+				});
+				}
+  </script>
