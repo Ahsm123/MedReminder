@@ -18,7 +18,8 @@ namespace MedReminder.Api.Tools
                 Description = medicationDTO.Description,
                 StartDate = medicationDTO.StartDate,
                 EndDate = medicationDTO.EndDate,
-                TimeToTake = medicationDTO.TimeToTake
+                TimeToTake = medicationDTO.TimeToTake,
+                RecurrencePattern = medicationDTO.RecurrencePattern
             };
         }
 
@@ -35,7 +36,8 @@ namespace MedReminder.Api.Tools
                 Description = medication.Description,
                 StartDate = medication.StartDate,
                 EndDate = medication.EndDate,
-                TimeToTake = medication.TimeToTake
+                TimeToTake = medication.TimeToTake,
+                RecurrencePattern = medication.RecurrencePattern
             };
         }
     }

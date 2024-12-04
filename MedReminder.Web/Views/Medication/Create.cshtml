@@ -28,6 +28,24 @@
     </div>
 
     <div class="mb-3">
+        <label asp-for="TimeToTake" class="form-label">Tidspunkt</label>
+        <select asp-for="TimeToTake" class="form-select">
+            @foreach (var time in Model.TimeOptions)
+            {
+                <option value="@time">@time</option>
+            }
+        </select>
+        <span asp-validation-for="TimeToTake" class="text-danger"></span>
+    </div>
+
+
+    <div class="mb-3">
+        <label asp-for="RecurrencePattern" class="form-label">Gentagelse</label>
+        <textarea asp-for="RecurrencePattern" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="RecurrencePattern" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
         <label asp-for="StartDate" class="form-label">Start Date</label>
         <input asp-for="StartDate" class="form-control" type="date" required />
         <span asp-validation-for="StartDate" class="text-danger"></span>
@@ -54,4 +72,10 @@
     <button type="submit" class="btn btn-primary">Tilføj</button>
     <a asp-controller="User" asp-action="Index" asp-route-userId="@Model.UserId" class="btn btn-secondary">Annuller</a>
 </form>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+}
+
 

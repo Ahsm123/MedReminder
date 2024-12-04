@@ -12,12 +12,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Load user secrets in development
 if (builder.Environment.IsDevelopment())
 {
-	builder.Configuration.AddUserSecrets<Program>();
+    builder.Configuration.AddUserSecrets<Program>();
 }
 
 // Get connection string
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-					  ?? throw new InvalidOperationException("Connection string 'DefaultConnection' is not configured.");
+                      ?? throw new InvalidOperationException("Connection string 'DefaultConnection' is not configured.");
 
 // Register services
 builder.Services.AddSingleton<ISmsService, TwilioSmsService>();
@@ -35,25 +35,25 @@ builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 // Register and bind JWT settings
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>()
-				  ?? throw new InvalidOperationException("JWT settings are not configured.");
+                  ?? throw new InvalidOperationException("JWT settings are not configured.");
 
 // Configure JWT authentication
 builder.Services.AddAuthentication(options =>
 {
-	options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-	options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(options =>
 {
-	options.TokenValidationParameters = new TokenValidationParameters
-	{
-		ValidateIssuer = true,
-		ValidateAudience = true,
-		ValidateLifetime = true,
-		ValidateIssuerSigningKey = true,
-		ValidIssuer = jwtSettings.Issuer,
-		ValidAudience = jwtSettings.Audience,
-		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
-	};
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtSettings.Issuer,
+        ValidAudience = jwtSettings.Audience,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
+    };
 });
 
 // Register authorization
@@ -66,40 +66,40 @@ builder.Services.AddEndpointsApiExplorer();
 // Configure Swagger with JWT support
 builder.Services.AddSwaggerGen(c =>
 {
-	c.SwaggerDoc("v1", new() { Title = "MedReminder API", Version = "v1" });
+    c.SwaggerDoc("v1", new() { Title = "MedReminder API", Version = "v1" });
 
-	// Add XML comments if available
-	var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
-	var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-	if (File.Exists(xmlPath))
-	{
-		c.IncludeXmlComments(xmlPath);
-	}
+    // Add XML comments if available
+    var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    if (File.Exists(xmlPath))
+    {
+        c.IncludeXmlComments(xmlPath);
+    }
 
-	// Add JWT authentication support in Swagger
-	c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
-	{
-		Name = "Authorization",
-		Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
-		Scheme = "bearer",
-		BearerFormat = "JWT",
-		In = Microsoft.OpenApi.Models.ParameterLocation.Header,
-		Description = "Enter 'Bearer' [space] and then your valid token."
-	});
-	c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
-	{
-		{
-			new Microsoft.OpenApi.Models.OpenApiSecurityScheme
-			{
-				Reference = new Microsoft.OpenApi.Models.OpenApiReference
-				{
-					Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
-					Id = "Bearer"
-				}
-			},
-			new string[] {}
-		}
-	});
+    // Add JWT authentication support in Swagger
+    c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+        Description = "Enter 'Bearer' [space] and then your valid token."
+    });
+    c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+    {
+        {
+            new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+            {
+                Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                {
+                    Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
+    });
 });
 
 var app = builder.Build();
@@ -107,14 +107,14 @@ var app = builder.Build();
 // Enable Swagger in development
 if (app.Environment.IsDevelopment())
 {
-	app.UseSwagger();
-	app.UseSwaggerUI();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 // Middleware
 if (!app.Environment.IsDevelopment())
 {
-	app.UseHttpsRedirection();
+    app.UseHttpsRedirection();
 }
 
 app.UseAuthentication();
