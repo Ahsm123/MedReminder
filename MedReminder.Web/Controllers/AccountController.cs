@@ -28,17 +28,19 @@ namespace MedReminder.Web.Controllers
                 return View(registerDTO);
             }
 
-            var response = await _apiClient.PostAsync<RegisterDTO>("Auth/Register", registerDTO);
-
-
-            if (!response.IsSuccessful)
+            try
             {
-                ModelState.AddModelError("", response.Content);
+                await _apiClient.PostAsync<object>("Auth/Register", registerDTO);
+
+                return RedirectToAction("Login");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
                 return View(registerDTO);
             }
-
-            return RedirectToAction("Login");
         }
+
 
         public IActionResult Login()
         {
@@ -53,17 +55,25 @@ namespace MedReminder.Web.Controllers
                 return View(loginDTO);
             }
 
-            var response = await _apiClient.PostAsync<LoginResponseDTO>("Auth/Login", loginDTO);
-            if (!response.IsSuccessful)
+            try
             {
-                ModelState.AddModelError("", response.Content);
+                // Call the API to log in and retrieve the JWT token
+                var response = await _apiClient.PostAsync<LoginResponseDTO>("Auth/Login", loginDTO);
+
+                // Save the token in a secure cookie
+                _cookieService.SetJwtToken(response.Token, TimeSpan.FromHours(1));
+
+                // Redirect to the user dashboard
+                return RedirectToAction("Index", "User");
+            }
+            catch (Exception ex)
+            {
+                // Handle any API errors
+                ModelState.AddModelError("", ex.Message);
                 return View(loginDTO);
             }
-
-            _cookieService.SetJwtToken(response.Data.Token, TimeSpan.FromHours(1));
-            return RedirectToAction("Index", "User");
-
         }
+
 
 
         public IActionResult Logout()
