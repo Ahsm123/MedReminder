@@ -8,4 +8,6 @@ public class User
     public string Email { get; set; }
     public string PasswordHash { get; set; }
     public DateTime CreatedAt { get; set; }
+    public string RefreshToken { get; set; }
+    public DateTime RefreshTokenExpiry { get; set; }
 }

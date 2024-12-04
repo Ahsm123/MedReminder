@@ -57,22 +57,20 @@ namespace MedReminder.Web.Controllers
 
             try
             {
-                // Call the API to log in and retrieve the JWT token
                 var response = await _apiClient.PostAsync<LoginResponseDTO>("Auth/Login", loginDTO);
 
-                // Save the token in a secure cookie
-                _cookieService.SetJwtToken(response.Token, TimeSpan.FromHours(1));
+                _cookieService.SetJwtToken(response.Token, TimeSpan.FromMinutes(5));
+                _cookieService.SetRefreshToken(response.RefreshToken, TimeSpan.FromMinutes(30));
 
-                // Redirect to the user dashboard
                 return RedirectToAction("Index", "User");
             }
             catch (Exception ex)
             {
-                // Handle any API errors
                 ModelState.AddModelError("", ex.Message);
                 return View(loginDTO);
             }
         }
+
 
 
 

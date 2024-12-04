@@ -1,5 +1,4 @@
 using MedReminder.ApiClient;
-using MedReminder.Web.Middlewares;
 using MedReminder.Web.Service;
 using MedReminder.Web.Service.Interfaces;
 
@@ -11,7 +10,7 @@ var apiBaseUrl = builder.Configuration.GetValue<string>("ApiBaseUrl");
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddSingleton<ICookieService, CookieService>();
 builder.Services.AddSingleton<IApiClient>(provider =>
-	new ApiClient(builder.Configuration["ApiBaseUrl"]));
+    new ApiClient(builder.Configuration["ApiBaseUrl"]));
 
 builder.Services.AddControllersWithViews();
 
@@ -20,11 +19,10 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-	app.UseExceptionHandler("/Home/Error");
-	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-	app.UseHsts();
+    app.UseExceptionHandler("/Home/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
 }
-app.UseMiddleware<ApiExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -34,7 +32,7 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-	name: "default",
-	pattern: "{controller=Home}/{action=Index}/{id?}");
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

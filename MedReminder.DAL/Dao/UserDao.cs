@@ -7,9 +7,17 @@ namespace MedReminder.Dal.Dao;
 
 public class UserDao : IUserDao
 {
-    private const string GetByIdSql = @" SELECT Id, FirstName, LastName, Email, PasswordHash, CreatedAt FROM Users WHERE Id = @Id";
-    private const string GetUserByEmailSql = @" SELECT * FROM Users WHERE Email = @Email";
-    private const string CreateUserSql = @"INSERT INTO Users (FirstName, LastName, Email, PasswordHash, CreatedAt) VALUES (@FirstName, @LastName, @Email, @PasswordHash, @CreatedAt) SELECT SCOPE_IDENTITY()";
+    private const string GetByIdSql = @"SELECT Id, FirstName, LastName, Email, PasswordHash, CreatedAt FROM Users WHERE Id = @Id";
+    private const string GetUserByEmailSql = @"SELECT * FROM Users WHERE Email = @Email";
+    private const string CreateUserSql = @"
+        INSERT INTO Users (FirstName, LastName, Email, PasswordHash, CreatedAt) 
+        VALUES (@FirstName, @LastName, @Email, @PasswordHash, @CreatedAt) 
+        SELECT SCOPE_IDENTITY()";
+    private const string GetUserByRefreshTokenSql = @"SELECT * FROM Users WHERE RefreshToken = @RefreshToken";
+    private const string UpdateRefreshTokenSql = @"
+        UPDATE Users 
+        SET RefreshToken = @RefreshToken, RefreshTokenExpiry = @RefreshTokenExpiry 
+        WHERE Id = @Id";
 
     private readonly IConnectionFactory _connectionFactory;
 
@@ -28,7 +36,6 @@ public class UserDao : IUserDao
         try
         {
             using var connection = _connectionFactory.CreateConnection();
-
             var user = await connection.QueryFirstOrDefaultAsync<User>(GetByIdSql, new { Id = id });
             if (user == null)
             {
@@ -44,7 +51,6 @@ public class UserDao : IUserDao
 
     public async Task<int> CreateUserAsync(User user)
     {
-
         if (user == null)
         {
             throw new ArgumentNullException(nameof(user), "User cannot be null");
@@ -53,35 +59,77 @@ public class UserDao : IUserDao
         try
         {
             using var connection = _connectionFactory.CreateConnection();
-
             var id = await connection.ExecuteScalarAsync<int>(CreateUserSql, user);
-
             return id;
         }
         catch (SqlException ex)
         {
             throw new DataAccessException("An error occurred while creating the user.", ex);
         }
-
     }
 
     public async Task<User> GetUserByEmailAsync(string email)
     {
-        if (email == null)
+        if (string.IsNullOrWhiteSpace(email))
         {
-            throw new ArgumentNullException(nameof(email), "Email cannot be null");
+            throw new ArgumentNullException(nameof(email), "Email cannot be null or empty");
         }
 
         try
         {
             using var connection = _connectionFactory.CreateConnection();
-
-            var user = await connection.QueryFirstOrDefaultAsync<User>(GetUserByEmailSql, new { Email = email });
-            return user;
+            return await connection.QueryFirstOrDefaultAsync<User>(GetUserByEmailSql, new { Email = email });
         }
         catch (SqlException ex)
         {
             throw new DataAccessException("An error occurred while getting user by email", ex);
         }
     }
+
+    public async Task<User> GetUserByRefreshTokenAsync(string refreshToken)
+    {
+        if (string.IsNullOrWhiteSpace(refreshToken))
+        {
+            throw new ArgumentNullException(nameof(refreshToken), "Refresh token cannot be null or empty");
+        }
+
+        try
+        {
+            using var connection = _connectionFactory.CreateConnection();
+            return await connection.QueryFirstOrDefaultAsync<User>(GetUserByRefreshTokenSql, new { RefreshToken = refreshToken });
+        }
+        catch (SqlException ex)
+        {
+            throw new DataAccessException("An error occurred while getting user by refresh token", ex);
+        }
+    }
+
+    public async Task UpdateRefreshTokenAsync(int userId, string refreshToken, DateTime refreshTokenExpiry)
+    {
+        if (userId <= 0)
+        {
+            throw new ArgumentException("Invalid user ID", nameof(userId));
+        }
+
+        if (string.IsNullOrWhiteSpace(refreshToken))
+        {
+            throw new ArgumentNullException(nameof(refreshToken), "Refresh token cannot be null or empty");
+        }
+
+        try
+        {
+            using var connection = _connectionFactory.CreateConnection();
+            await connection.ExecuteAsync(UpdateRefreshTokenSql, new
+            {
+                Id = userId,
+                RefreshToken = refreshToken,
+                RefreshTokenExpiry = refreshTokenExpiry
+            });
+        }
+        catch (SqlException ex)
+        {
+            throw new DataAccessException("An error occurred while updating the refresh token", ex);
+        }
+    }
 }
+

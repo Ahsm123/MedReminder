@@ -6,4 +6,6 @@ public interface ICookieService
     void SetJwtToken(string token, TimeSpan expirationTime);
     void DeleteJwtToken();
     int? ExstractUserIdFromToken();
+    string? GetRefreshToken();
+    void SetRefreshToken(string refreshToken, TimeSpan expiration);
 }
