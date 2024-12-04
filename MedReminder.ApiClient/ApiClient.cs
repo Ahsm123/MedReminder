@@ -10,35 +10,56 @@ public class ApiClient : IApiClient
     {
         _restClient = new RestClient(baseUrl);
     }
-    public async Task<RestResponse> DeleteAsync(string endpoint, string token = null)
-    {
-        var request = new RestRequest(endpoint, Method.Delete);
-        AddAuthorizationHeader(request, token);
-        return await _restClient.ExecuteAsync(request);
 
-    }
-
-    public async Task<RestResponse<T>> GetAsync<T>(string endpoint, string token = null)
+    public async Task<T> GetAsync<T>(string endpoint, string? token = null)
     {
         var request = new RestRequest(endpoint, Method.Get);
         AddAuthorizationHeader(request, token);
-        return await _restClient.ExecuteAsync<T>(request);
+
+        var response = await _restClient.ExecuteAsync<T>(request);
+        if (!response.IsSuccessful)
+            throw new Exception(response.Content ?? "API call failed");
+
+        return response.Data!;
     }
 
-    public async Task<RestResponse<T>> PostAsync<T>(string endpoint, object payload, string token = null)
+    public async Task<T> PostAsync<T>(string endpoint, object payload, string token = null)
     {
         var request = new RestRequest(endpoint, Method.Post);
         request.AddJsonBody(payload);
         AddAuthorizationHeader(request, token);
-        return await _restClient.ExecuteAsync<T>(request);
+
+        var response = await _restClient.ExecuteAsync<T>(request);
+
+        if (!response.IsSuccessful)
+        {
+            throw new Exception(response.Content ?? "API call failed");
+        }
+
+        return response.Data!;
     }
 
-    public async Task<RestResponse> PutAsync<T>(string endpoint, object payload, string token = null)
+    public async Task DeleteAsync(string endpoint, string? token = null)
+    {
+        var request = new RestRequest(endpoint, Method.Delete);
+        AddAuthorizationHeader(request, token);
+
+        var response = await _restClient.ExecuteAsync(request);
+        if (!response.IsSuccessful)
+            throw new Exception(response.Content ?? "API call failed");
+    }
+
+    public async Task<T> PutAsync<T>(string endpoint, object payload, string? token = null)
     {
         var request = new RestRequest(endpoint, Method.Put);
         request.AddJsonBody(payload);
         AddAuthorizationHeader(request, token);
-        return await _restClient.ExecuteAsync(request);
+
+        var response = await _restClient.ExecuteAsync<T>(request);
+        if (!response.IsSuccessful)
+            throw new Exception(response.Content ?? "API call failed");
+
+        return response.Data!;
     }
 
     private void AddAuthorizationHeader(RestRequest request, string token)
