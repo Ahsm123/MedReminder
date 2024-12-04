@@ -159,3 +159,106 @@ body {
     .form-section p {
         margin-bottom: 20px; /* Gør afstanden lidt mindre */
     }
+
+/* Generel styling for sidebar */
+.custom-sidebar {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px 10px;
+}
+
+    /* Header styling */
+    .custom-sidebar .sidebar-header {
+        background-color: white;
+        font-weight: bold;
+        font-size: 1.25rem;
+        color: rgb(220, 53, 69);
+        border-bottom: 2px solid rgb(246, 103, 103);
+    }
+
+    /* Knappestil for links */
+    .custom-sidebar .nav-link {
+        color: white;
+        background-color: rgb(220, 53, 69);
+        border: none;
+        font-size: 1rem;
+        margin: 10px 0;
+        padding: 10px 15px;
+        text-align: left;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        border-radius: 6px;
+    }
+
+        .custom-sidebar .nav-link:hover {
+            background-color: #d85c5c;
+            transform: translateY(-3px);
+        }
+
+        .custom-sidebar .nav-link.active {
+            background-color: #c0392b;
+        }
+
+/* Responsiv styling */
+@media (max-width: 768px) {
+    .custom-sidebar .nav-link {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+/* Generel tabel styling */
+.custom-table {
+    border: none; /* Rød kant */
+    border-radius: 12px; /* Runde hjørner */
+    box-shadow: none; /* Let skygge */
+    background-color: none; /* Hvid baggrund */
+    overflow: hidden; /* Runde kanter også på indholdet */
+}
+
+    /* Tabelhoveder */
+    .custom-table thead {
+        background-color: rgb(246, 103, 103); /* Rød baggrund */
+        color: white; /* Hvid tekst */
+        text-align: center;
+        font-weight: bold;
+    }
+
+    /* Rækker */
+    .custom-table tbody tr {
+        transition: background-color 0.2s ease;
+    }
+
+        .custom-table tbody tr:hover {
+            background-color: #fde2e4; /* Lys rød ved hover */
+        }
+
+/* Runde kanter på knapper */
+.custom-btn-danger,
+.custom-btn-warning {
+    border-radius: 8px; /* Runde hjørner */
+}
+
+/* Fjern sort farve og tilføj hover-effekter */
+.custom-btn-danger {
+    color: white;
+    background-color: rgb(220, 53, 69); /* Rød farve */
+    border: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+    .custom-btn-danger:hover {
+        background-color: #c0392b; /* Mørkere rød ved hover */
+        transform: translateY(-2px); /* Let løft */
+    }
+
+.custom-btn-warning {
+    color: white;
+    background-color: rgb(255, 193, 7); /* Gul farve */
+    border: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+    .custom-btn-warning:hover {
+        background-color: #e0ac00; /* Mørkere gul ved hover */
+        transform: translateY(-2px); /* Let løft */
+    }
