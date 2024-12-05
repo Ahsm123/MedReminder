@@ -1,11 +1,10 @@
 ﻿@model List<MedicationDTO>
-
 @{
     ViewData["Title"] = "Daglig Medicinplan";
     var selectedDate = ViewBag.SelectedDate as DateTime? ?? DateTime.UtcNow.Date;
 }
 
-<h1 class="text-center my-4 text-primary">Daglig Medicinplan</h1>
+<h1 class="text-center my-4 text-danger">Daglig Medicinplan</h1>
 
 <div class="container">
     <!-- Date Selector -->
@@ -17,7 +16,7 @@
             <input type="date" id="date" name="date" value="@selectedDate.ToString("yyyy-MM-dd")" class="form-control">
         </div>
         <div class="col-auto">
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-danger">
                 <i class="bi bi-calendar-event"></i> Vis
             </button>
         </div>
@@ -25,20 +24,19 @@
 
     <!-- Navigation Buttons -->
     <div class="text-center mb-4">
-        <a asp-action="DailySchedule" asp-controller="Medication" asp-route-date="@selectedDate.AddDays(-1).ToString("yyyy-MM-dd")" class="btn btn-outline-secondary me-2">
+        <a asp-action="DailySchedule" asp-controller="Medication" asp-route-date="@selectedDate.AddDays(-1).ToString("yyyy-MM-dd")" class="btn btn-outline-danger me-2">
             <i class="bi bi-chevron-left"></i> Forrige Dag
         </a>
-        <a asp-action="DailySchedule" asp-controller="Medication" asp-route-date="@selectedDate.AddDays(1).ToString("yyyy-MM-dd")" class="btn btn-outline-secondary">
+        <a asp-action="DailySchedule" asp-controller="Medication" asp-route-date="@selectedDate.AddDays(1).ToString("yyyy-MM-dd")" class="btn btn-outline-danger">
             Næste Dag <i class="bi bi-chevron-right"></i>
         </a>
     </div>
 
-    <!-- Medication Table -->
-    @if (Model != null && Model.Any())
+    @if (Model?.Any() == true)
     {
         <div class="table-responsive">
-            <table class="table table-striped align-middle">
-                <thead class="table-dark">
+            <table class="table table-striped align-middle rounded-table">
+                <thead class="table-danger">
                     <tr>
                         <th scope="col"><i class="bi bi-clock"></i> Tid</th>
                         <th scope="col"><i class="bi bi-capsule"></i> Medicin</th>

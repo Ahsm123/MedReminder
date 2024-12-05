@@ -14,55 +14,71 @@
         </p>
     </div>
 
-    <div class="row text-center justify-content-center gy-4">
-        <!-- Min Medicin -->
-        <div class="col-md-4">
-            <div class="card border-0 shadow h-100">
-                <div class="card-body">
-                    <div class="icon-box bg-danger text-white rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
-                        <i class="bi bi-capsule fs-4"></i>
-                    </div>
-                    <h5 class="card-title fw-bold">Min Medicin</h5>
-                    <p class="card-text text-muted">Klik på knappen nedenfor for at se din medicinliste og holde styr på din medicin.</p>
-                    <a asp-action="Index" asp-controller="User" class="btn btn-danger">Min Medicin</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mediven -->
-        <div class="col-md-4">
-            <div class="card border-0 shadow h-100">
-                <div class="card-body">
-                    <div class="icon-box bg-primary text-white rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
-                        <i class="bi bi-person-add fs-4"></i>
-                    </div>
-                    <h5 class="card-title fw-bold">Mediven</h5>
-                    <p class="card-text text-muted">
-                        En Mediven er en støtteperson, der hjælper borgere eller pårørende med at opsætte og anvende deres medicinhusker. Med en Mediven bliver det nemmere og mere sikkert at håndtere medicinen i hverdagen.
-                    </p>
-                    <a href="#" class="btn btn-primary">Tilføj Mediven</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Login -->
-        @if (!isLoggedIn)
-        {
+        <div class="row text-center justify-content-center gy-4">
+            <!-- Min Medicin -->
             <div class="col-md-4">
                 <div class="card border-0 shadow h-100">
                     <div class="card-body">
-                        <div class="icon-box bg-success text-white rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
-                            <i class="bi bi-clipboard2-heart fs-4"></i>
+                        <div class="icon-box bg-danger text-white rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                            <i class="bi bi-capsule fs-4"></i>
                         </div>
-                        <h5 class="card-title fw-bold">Login</h5>
-                        <p class="card-text text-muted">Klik på knappen nedenfor for at logge ind og få adgang til din konto.</p>
-                        <a asp-controller="account" asp-action="login" class="btn btn-success">Login</a>
+                        <h5 class="card-title fw-bold">Min Medicin</h5>
+                        <p class="card-text text-muted">Klik på knappen nedenfor for at se din medicinliste og holde styr på din medicin.</p>
+                        <a asp-action="Index" asp-controller="User" class="btn btn-danger">Min Medicin</a>
                     </div>
                 </div>
             </div>
-        }
-    </div>
-</div>
+
+            <!-- Mediven -->
+            <div class="col-md-4">
+                <div class="card border-0 shadow h-100">
+                    <div class="card-body">
+                        <div class="icon-box bg-primary text-white rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                            <i class="bi bi-person-add fs-4"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">Mediven</h5>
+                        <p class="card-text text-muted">
+                            En Mediven er en støtteperson, der hjælper borgere eller pårørende med at opsætte og anvende deres medicinhusker. Med en Mediven bliver det nemmere og mere sikkert at håndtere medicinen i hverdagen.
+                        </p>
+                        <a href="#" class="btn btn-primary">Tilføj Mediven</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Login -->
+            @if (!isLoggedIn)
+            {
+                <div class="col-md-4">
+                    <div class="card border-0 shadow h-100">
+                        <div class="card-body">
+                            <div class="icon-box bg-success text-white rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                <i class="bi bi-clipboard2-heart fs-4"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">Login</h5>
+                            <p class="card-text text-muted">Klik på knappen nedenfor for at logge ind og få adgang til din konto.</p>
+                            <a asp-controller="account" asp-action="login" class="btn btn-success">Login</a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <!-- Kun for loggede ind brugere -->
+            @if (isLoggedIn)
+            {
+                <div class="col-md-4">
+                    <div class="card border-0 shadow h-100">
+                        <div class="card-body">
+                            <div class="icon-box bg-warning text-white rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                <i class="bi bi-calendar-check fs-4"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">Daglig Plan</h5>
+                            <p class="card-text text-muted">Se din daglige medicinplan og hold styr på, hvornår du skal tage din medicin.</p>
+                            <a asp-action="DailySchedule" asp-controller="Medication" class="btn btn-warning text-white">Se Daglig Plan</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
 <br />
 </body>
 

@@ -30,7 +30,26 @@ body {
     background-color: white;
     padding: 0px;
     margin: 0px;
+    height: 100%;
+
 }
+
+footer {
+    background-color: #f8f9fa; /* Light gray background */
+    color: #6c757d; /* Bootstrap text-muted color */
+    text-align: center;
+    padding: 10px 0;
+    border-top: 1px solid #dee2e6; /* Border for separation */
+}
+
+    footer a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
 
 /* Generel styling for navbar */
 .custom-navbar {
@@ -262,3 +281,44 @@ body {
         background-color: #e0ac00; /* Mørkere gul ved hover */
         transform: translateY(-2px); /* Let løft */
     }
+
+
+.rounded-table {
+    border-radius: 15px; /* Tilføj rundede hjørner */
+    overflow: hidden; /* Sikrer at indholdet følger de rundede kanter */
+}
+
+/* Hvis du også vil have rundede hjørner på table-headeren */
+.table-danger {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+
+
+/* Container styling */
+.container {
+    max-width: 1200px; /* Begrænset bredde for bedre læsbarhed */
+    margin: 0 auto; /* Centering container */
+}
+
+/* Kort-styling */
+.card {
+    background-color: #ffffff; /* Hvid baggrund for kontrast */
+    border: none; /* Fjern standard border */
+    border-radius: 15px; /* Rundede hjørner */
+    padding: 20px; /* Indvendig padding */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Blød skygge for dybde */
+    transition: transform 0.2s; /* Gør kortene animerede ved hover */
+}
+
+    .card:hover {
+        transform: translateY(-5px); /* Løft kortene lidt ved hover */
+    }
+
+/* Responsiv styling */
+@media (max-width: 768px) {
+    .col-md-4 {
+        margin-bottom: 20px; /* Plads mellem sektioner på mobile enheder */
+    }
+}
