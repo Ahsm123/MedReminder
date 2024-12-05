@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using MedReminder.Shared.DTOs;
+using RestSharp;
 
 namespace MedReminder.ApiClient;
 
@@ -69,4 +70,18 @@ public class ApiClient : IApiClient
             request.AddHeader("Authorization", $"Bearer {token}");
         }
     }
+
+    public async Task<LoginResponseDTO> RefreshTokenAsync(string refreshToken)
+    {
+        var request = new RestRequest("Auth/RefreshToken", Method.Post);
+        request.AddJsonBody(new { RefreshToken = refreshToken });
+
+        var response = await _restClient.ExecuteAsync<LoginResponseDTO>(request);
+
+        if (!response.IsSuccessful)
+            throw new Exception(response.Content ?? "Failed to refresh token");
+
+        return response.Data!;
+    }
+
 }

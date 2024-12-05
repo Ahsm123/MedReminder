@@ -13,7 +13,7 @@ public class Medication
     public DateTime EndDate { get; set; }
     public TimeSpan TimeToTake { get; set; }
 
-    public string RecurrencePattern { get; set; } = "Daily";
+    public string RecurrencePattern { get; set; }
 
     public User User { get; set; } = null!;
 }

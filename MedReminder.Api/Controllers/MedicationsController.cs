@@ -11,62 +11,61 @@ namespace MedReminder.Api.Controllers;
 [Authorize]
 public class MedicationsController : ControllerBase
 {
-	private readonly IMedicationService _medicationService;
+    private readonly IMedicationService _medicationService;
 
-	public MedicationsController(IMedicationService medicationService)
-	{
-		_medicationService = medicationService;
-	}
+    public MedicationsController(IMedicationService medicationService)
+    {
+        _medicationService = medicationService;
+    }
 
-	[HttpPost]
-	public async Task<IActionResult> CreateMedicationAsync(MedicationDTO medicationDTO)
-	{
-		return Ok(await _medicationService.CreateMedicationAsync(medicationDTO));
-	}
+    [HttpPost]
+    public async Task<IActionResult> CreateMedicationAsync(MedicationDTO medicationDTO)
+    {
+        return Ok(await _medicationService.CreateMedicationAsync(medicationDTO));
+    }
 
-	[HttpGet("user/{userId}")]
-	public async Task<IActionResult> GetMedicationByUserIdAsync(int userId)
-	{
-		var medications = await _medicationService.GetMedicationByUserIdAsync(userId);
-		if (medications == null) { return NotFound(); }
-		var medicationDtos = medications.Select(m => m.ToDTO()).ToList();
-		return Ok(medicationDtos);
-	}
+    [HttpGet("user/{userId}")]
+    public async Task<IActionResult> GetMedicationByUserIdAsync(int userId)
+    {
+        var medications = await _medicationService.GetMedicationByUserIdAsync(userId);
+        if (medications == null) { return NotFound(); }
+        var medicationDtos = medications.Select(m => m.ToDTO()).ToList();
+        return Ok(medicationDtos);
+    }
 
-	[HttpGet("{id}")]
-	public async Task<IActionResult> GetMedicationByIdAsync(int id)
-	{
-		var medication = await _medicationService.GetMedicationByIdAsync(id);
-		if (medication == null) { return NotFound(); }
-		var medicationDTO = medication.ToDTO();
-		return Ok(medicationDTO);
-	}
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetMedicationByIdAsync(int id)
+    {
+        var medication = await _medicationService.GetMedicationByIdAsync(id);
+        if (medication == null) { return NotFound(); }
+        var medicationDTO = medication.ToDTO();
+        return Ok(medicationDTO);
+    }
 
-	[HttpDelete("{id}")]
-	public async Task<IActionResult> DeleteMedicationAsync(int id)
-	{
-		if (!await _medicationService.DeleteMedicationAsync(id)) { return NotFound(); }
-		return Ok();
-	}
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteMedicationAsync(int id)
+    {
+        if (!await _medicationService.DeleteMedicationAsync(id)) { return NotFound(); }
+        return Ok();
+    }
 
-	[HttpPut("{id}")]
-	public async Task<IActionResult> UpdateMedicationAsync(int id, MedicationDTO medicationDTO)
-	{
-		medicationDTO.Id = id;
-		if (!await _medicationService.UpdateMedicationAsync(medicationDTO)) { return NotFound(); }
-		return Ok();
-	}
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateMedicationAsync(int id, MedicationDTO medicationDTO)
+    {
+        medicationDTO.Id = id;
+        if (!await _medicationService.UpdateMedicationAsync(medicationDTO)) { return NotFound(); }
+        return Ok();
+    }
 
-	[HttpGet("user/{userId}/schedule")] //TODO: Medicinen vises på de rigtige dage, men alle vises med gentagelse "Daily"
-	public async Task<IActionResult> GetDailySchedule(int userId, [FromQuery] DateTime? date)
-	{
-		var selectedDate = date ?? DateTime.Now;
-		var medications = await _medicationService.GetDailyScheduleAsync(userId, selectedDate);
-		if (!medications.Any()) { return NotFound("No medications scheduled for today."); }
+    [HttpGet("user/{userId}/schedule")] //TODO: Medicinen vises på de rigtige dage, men alle vises med gentagelse "Daily"
+    public async Task<IActionResult> GetDailySchedule(int userId, [FromQuery] DateTime? date)
+    {
+        var selectedDate = date ?? DateTime.Now;
+        var medications = await _medicationService.GetDailyScheduleAsync(userId, selectedDate);
 
-		var medicationDtos = medications.Select(m => m.ToDTO()).ToList();
-		return Ok(medicationDtos);
+        var medicationDtos = medications.Select(m => m.ToDTO()).ToList();
+        return Ok(medicationDtos);
 
-	}
+    }
 }
 
