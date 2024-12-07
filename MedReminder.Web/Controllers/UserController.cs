@@ -51,9 +51,13 @@ public class UserController : Controller
         }
     }
 
-    public async Task<IActionResult> Edit()
+    public async Task<IActionResult> Edit(int id)
     {
-        var id = _cookieService.ExstractUserIdFromToken();
+        if (id == 0)
+        {
+            id = _cookieService.ExstractUserIdFromToken() ?? 0;
+        }
+
         var token = _cookieService.GetJwtToken();
         var response = await _apiClient.GetAsync<UserDTO>($"Users/{id}", token);
         return View(response);
@@ -63,7 +67,7 @@ public class UserController : Controller
     public async Task<IActionResult> Edit(UserDTO userDTO)
     {
         var token = _cookieService.GetJwtToken();
-        await _apiClient.PutAsync<UserDTO>($"Users/{userDTO.Id}", token);
+        await _apiClient.PutAsync<UserDTO>($"Users/{userDTO.Id}", userDTO, token);
         return RedirectToAction("Index", "User");
     }
 

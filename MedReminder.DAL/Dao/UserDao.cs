@@ -7,10 +7,10 @@ namespace MedReminder.Dal.Dao;
 
 public class UserDao : IUserDao
 {
-    private const string GetByIdSql = @"SELECT Id, FirstName, LastName, Email, PasswordHash, CreatedAt FROM Users WHERE Id = @Id";
+    private const string GetByIdSql = @"SELECT Id, FirstName, LastName, Email, PhoneNumber, PasswordHash, CreatedAt FROM Users WHERE Id = @Id";
     private const string GetUserByEmailSql = @"SELECT * FROM Users WHERE Email = @Email";
     private const string CreateUserSql = @"
-        INSERT INTO Users (FirstName, LastName, Email, PasswordHash, CreatedAt) 
+        INSERT INTO Users (FirstName, LastName, Email, PhoneNumber, PasswordHash, CreatedAt) 
         VALUES (@FirstName, @LastName, @Email, @PasswordHash, @CreatedAt) 
         SELECT SCOPE_IDENTITY()";
     private const string GetUserByRefreshTokenSql = @"SELECT * FROM Users WHERE RefreshToken = @RefreshToken";
@@ -20,7 +20,7 @@ public class UserDao : IUserDao
         WHERE Id = @Id";
     private const string UpdateUserSql = @"
         UPDATE Users 
-        SET FirstName = @FirstName, LastName = @LastName, Email = @Email 
+        SET FirstName = @FirstName, LastName = @LastName, Email = @Email, PhoneNumber = @PhoneNumber 
         WHERE Id = @Id";
 
     private readonly IConnectionFactory _connectionFactory;

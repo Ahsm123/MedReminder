@@ -7,13 +7,13 @@ public static class UserMapping
 {
     public static User ToDomain(this UserDTO userDTO)
     {
-        var nameParts = userDTO.Name.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
         return new User
         {
             Id = userDTO.Id,
-            FirstName = nameParts.Length > 0 ? nameParts[0] : string.Empty,
-            LastName = nameParts.Length > 1 ? nameParts[1] : string.Empty,
+            FirstName = userDTO.FirstName,
+            LastName = userDTO.LastName,
             Email = userDTO.Email,
+            PhoneNumber = userDTO.PhoneNumber,
             PasswordHash = userDTO.PasswordHash,
             CreatedAt = userDTO.CreatedAt
         };
@@ -23,8 +23,10 @@ public static class UserMapping
         return new UserDTO
         {
             Id = user.Id,
-            Name = $"{user.FirstName} {user.LastName}".Trim(),
+            FirstName = user.FirstName,
+            LastName = user.LastName,
             Email = user.Email,
+            PhoneNumber = user.PhoneNumber,
             PasswordHash = user.PasswordHash,
             CreatedAt = user.CreatedAt
         };
