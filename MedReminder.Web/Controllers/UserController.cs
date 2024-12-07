@@ -66,6 +66,10 @@ public class UserController : Controller
     [HttpPost]
     public async Task<IActionResult> Edit(UserDTO userDTO)
     {
+        if (!ModelState.IsValid)
+        {
+            return View(userDTO);
+        }
         var token = _cookieService.GetJwtToken();
         await _apiClient.PutAsync<UserDTO>($"Users/{userDTO.Id}", userDTO, token);
         return RedirectToAction("Index", "User");
