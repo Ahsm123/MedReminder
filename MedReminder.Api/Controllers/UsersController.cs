@@ -1,10 +1,12 @@
-﻿using MedReminder.Api.DTOs;
-using MedReminder.Api.Services.Interfaces;
+﻿using MedReminder.Api.Services.Interfaces;
 using MedReminder.Api.Tools;
+using MedReminder.Shared.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MedReminder.Api.Controllers
 {
+    [Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -34,6 +36,15 @@ namespace MedReminder.Api.Controllers
             var user = userDTO.ToDomain();
             var id = await _userService.CreateAsync(user);
             return CreatedAtAction(nameof(GetByIdAsync), new { id }, user);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUserAsync(int id, UserDTO userDTO)
+        {
+            userDTO.Id = id;
+            var user = userDTO.ToDomain();
+            if (!await _userService.UpdateUserAsync(user)) { return NotFound(); }
+            return Ok();
         }
     }
 }

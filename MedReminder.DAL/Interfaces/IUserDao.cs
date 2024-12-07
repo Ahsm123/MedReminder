@@ -9,5 +9,6 @@ public interface IUserDao
     Task<int> CreateUserAsync(User user);
     Task<User> GetUserByRefreshTokenAsync(string refreshToken);
     Task UpdateRefreshTokenAsync(int userId, string refreshToken, DateTime refreshTokenExpiry);
+    Task<bool> UpdateUserAsync(User user);
 }
 

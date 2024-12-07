@@ -27,5 +27,16 @@ namespace MedReminder.Api.Services
         {
             return await _userDao.GetByIdAsync(id);
         }
+
+        public async Task<bool> UpdateUserAsync(User user)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user), "User cannot be null");
+            }
+
+            await _userDao.UpdateUserAsync(user);
+            return true;
+        }
     }
 }

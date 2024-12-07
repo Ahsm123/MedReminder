@@ -6,5 +6,6 @@ namespace MedReminder.Api.Services.Interfaces
     {
         Task<User> GetByIdAsync(int id);
         Task<int> CreateAsync(User user);
+        Task<bool> UpdateUserAsync(User user);
     }
 }

@@ -18,6 +18,10 @@ public class UserDao : IUserDao
         UPDATE Users 
         SET RefreshToken = @RefreshToken, RefreshTokenExpiry = @RefreshTokenExpiry 
         WHERE Id = @Id";
+    private const string UpdateUserSql = @"
+        UPDATE Users 
+        SET FirstName = @FirstName, LastName = @LastName, Email = @Email 
+        WHERE Id = @Id";
 
     private readonly IConnectionFactory _connectionFactory;
 
@@ -131,5 +135,19 @@ public class UserDao : IUserDao
             throw new DataAccessException("An error occurred while updating the refresh token", ex);
         }
     }
+
+    public async Task<bool> UpdateUserAsync(User user)
+    {
+        try
+        {
+            using var connection = _connectionFactory.CreateConnection();
+            return await connection.ExecuteAsync(UpdateUserSql, user) > 0;
+        }
+        catch (Exception ex)
+        {
+            throw new DataAccessException($"An error occurred while updating medication with id {user.Id}: '{ex.Message}'.", ex);
+        }
+    }
+
 }
 

@@ -1,5 +1,5 @@
-﻿using MedReminder.Api.DTOs;
-using MedReminder.DAL.Models;
+﻿using MedReminder.DAL.Models;
+using MedReminder.Shared.DTOs;
 
 namespace MedReminder.Api.Tools;
 
