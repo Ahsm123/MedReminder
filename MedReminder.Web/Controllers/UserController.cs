@@ -68,7 +68,7 @@ public class UserController : Controller
     {
         if (!ModelState.IsValid)
         {
-            return View(userDTO);
+            return View(userDTO, );
         }
         var token = _cookieService.GetJwtToken();
         await _apiClient.PutAsync<UserDTO>($"Users/{userDTO.Id}", userDTO, token);
