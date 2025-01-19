@@ -26,11 +26,13 @@ builder.Services.AddSingleton<IConnectionFactory>(_ => new ConnectionFactory(con
 // Register DAOs
 builder.Services.AddScoped<IMedicationDao, MedicationDao>();
 builder.Services.AddScoped<IUserDao, UserDao>();
+builder.Services.AddScoped<ISubscriptionDao, SubscriptionDao>();
 
 // Register services
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IMedicationService, MedicationService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 
 // Register and bind JWT settings
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
